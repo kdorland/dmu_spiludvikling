@@ -2,20 +2,26 @@
 
 public class GunAction : MonoBehaviour
 {
-    public Rigidbody bullet;
-    public Transform bulletPoint;
+    public Rigidbody bulletPrefab;
+    public Transform bulletEntry;
     public float bulletSpeed;
 
     public void Update()
     {
-        // Check for Fire1 input and instantiate bullet prefab at bulletPoint         
+        // Check for Fire1 input and instantiate bullet prefab at bullet entry         
         if ((Input.GetButtonDown("Fire1")))
         {
-            Rigidbody bulletInstance = Instantiate(bullet, bulletPoint.transform.position, bulletPoint.transform.rotation);
+            // The local up direction (green y-axis) of the gun is transformed into world space.
+            Vector3 gunDirection = bulletEntry.TransformDirection(Vector3.up);
 
-            // The local up direction of the gun is transformed into world space.
-            Vector3 gunDirection = transform.TransformDirection(Vector3.up);
-            bulletInstance.AddForce(gunDirection * bulletSpeed, ForceMode.Impulse);
+            // Create bullet
+            Rigidbody bulletInstance = Instantiate(bulletPrefab, 
+                bulletEntry.transform.position, bulletEntry.transform.rotation);
+
+            // Add force to bullet
+            Vector3 forceToAdd = gunDirection * bulletSpeed;
+            Debug.Log(forceToAdd);
+            bulletInstance.AddForce(forceToAdd, ForceMode.Impulse);
         }
     }
 }

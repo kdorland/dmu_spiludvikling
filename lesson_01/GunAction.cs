@@ -20,7 +20,6 @@ public class GunAction : MonoBehaviour
 
             // Add force to bullet
             Vector3 forceToAdd = gunDirection * bulletSpeed;
-            Debug.Log(forceToAdd);
             bulletInstance.AddForce(forceToAdd, ForceMode.Impulse);
         }
     }

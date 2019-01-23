@@ -6,9 +6,7 @@ public class BulletAction : MonoBehaviour {
 
     public void OnCollisionEnter(Collision collision)
     {      
-        ContactPoint contact = collision.contacts[0];
-        Vector3 pos = contact.point;
-        Instantiate(explosionPrefab, pos, Quaternion.identity);        
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);        
         Destroy(gameObject);
     }
 }
